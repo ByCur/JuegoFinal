@@ -1,252 +1,183 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.AnimatedValues;
 
-[CustomEditor(typeof(PrometeoCarController))]
-[System.Serializable]
-public class PrometeoEditor : Editor{
+[CustomEditor(typeof(Controlador))]
+public class PrometeoEditor : Editor
+{
+    private SerializedObject SO;
 
-  enum displayFieldType {DisplayAsAutomaticFields, DisplayAsCustomizableGUIFields}
-  displayFieldType DisplayFieldType;
+    // ➤ MULTIJUGADOR
+    private SerializedProperty isPlayer2;
+    private SerializedProperty keyForward;
+    private SerializedProperty keyReverse;
+    private SerializedProperty keyLeft;
+    private SerializedProperty keyRight;
+    private SerializedProperty keyHandbrake;
 
-  private PrometeoCarController prometeo;
-  private SerializedObject SO;
-  //
-  //
-  //CAR SETUP
-  //
-  //
-  private SerializedProperty maxSpeed;
-  private SerializedProperty maxReverseSpeed;
-  private SerializedProperty accelerationMultiplier;
-  private SerializedProperty maxSteeringAngle;
-  private SerializedProperty steeringSpeed;
-  private SerializedProperty brakeForce;
-  private SerializedProperty decelerationMultiplier;
-  private SerializedProperty handbrakeDriftMultiplier;
-  private SerializedProperty bodyMassCenter;
-  //
-  //
-  //WHEELS VARIABLES
-  //
-  //
-  private SerializedProperty frontLeftMesh;
-  private SerializedProperty frontLeftCollider;
-  private SerializedProperty frontRightMesh;
-  private SerializedProperty frontRightCollider;
-  private SerializedProperty rearLeftMesh;
-  private SerializedProperty rearLeftCollider;
-  private SerializedProperty rearRightMesh;
-  private SerializedProperty rearRightCollider;
-  //
-  //
-  //PARTICLE SYSTEMS' VARIABLES
-  //
-  //
-  private SerializedProperty useEffects;
-  private SerializedProperty RLWParticleSystem;
-  private SerializedProperty RRWParticleSystem;
-  private SerializedProperty RLWTireSkid;
-  private SerializedProperty RRWTireSkid;
-  //
-  //
-  //SPEED TEXT (UI) VARIABLES
-  //
-  //
-  private SerializedProperty useUI;
-  private SerializedProperty carSpeedText;
-  //
-  //
-  //SPEED TEXT (UI) VARIABLES
-  //
-  //
-  private SerializedProperty useSounds;
-  private SerializedProperty carEngineSound;
-  private SerializedProperty tireScreechSound;
-  //
-  //
-  //TOUCH CONTROLS VARIABLES
-  //
-  //
-  private SerializedProperty useTouchControls;
-  private SerializedProperty throttleButton;
-  private SerializedProperty reverseButton;
-  private SerializedProperty turnRightButton;
-  private SerializedProperty turnLeftButton;
-  private SerializedProperty handbrakeButton;
+    // CAR SETUP
+    private SerializedProperty maxSpeed;
+    private SerializedProperty maxReverseSpeed;
+    private SerializedProperty accelerationMultiplier;
+    private SerializedProperty maxSteeringAngle;
+    private SerializedProperty steeringSpeed;
+    private SerializedProperty brakeForce;
+    private SerializedProperty decelerationMultiplier;
+    private SerializedProperty handbrakeDriftMultiplier;
+    private SerializedProperty bodyMassCenter;
 
-  private void OnEnable(){
-    prometeo = (PrometeoCarController)target;
-    SO = new SerializedObject(target);
+    // WHEELS
+    private SerializedProperty frontLeftMesh;
+    private SerializedProperty frontLeftCollider;
+    private SerializedProperty frontRightMesh;
+    private SerializedProperty frontRightCollider;
+    private SerializedProperty rearLeftMesh;
+    private SerializedProperty rearLeftCollider;
+    private SerializedProperty rearRightMesh;
+    private SerializedProperty rearRightCollider;
 
-    maxSpeed = SO.FindProperty("maxSpeed");
-    maxReverseSpeed = SO.FindProperty("maxReverseSpeed");
-    accelerationMultiplier = SO.FindProperty("accelerationMultiplier");
-    maxSteeringAngle = SO.FindProperty("maxSteeringAngle");
-    steeringSpeed = SO.FindProperty("steeringSpeed");
-    brakeForce = SO.FindProperty("brakeForce");
-    decelerationMultiplier = SO.FindProperty("decelerationMultiplier");
-    handbrakeDriftMultiplier = SO.FindProperty("handbrakeDriftMultiplier");
-    bodyMassCenter = SO.FindProperty("bodyMassCenter");
+    // EFFECTS
+    private SerializedProperty useEffects;
+    private SerializedProperty RLWParticleSystem;
+    private SerializedProperty RRWParticleSystem;
+    private SerializedProperty RLWTireSkid;
+    private SerializedProperty RRWTireSkid;
 
-    frontLeftMesh = SO.FindProperty("frontLeftMesh");
-    frontLeftCollider = SO.FindProperty("frontLeftCollider");
-    frontRightMesh = SO.FindProperty("frontRightMesh");
-    frontRightCollider = SO.FindProperty("frontRightCollider");
-    rearLeftMesh = SO.FindProperty("rearLeftMesh");
-    rearLeftCollider = SO.FindProperty("rearLeftCollider");
-    rearRightMesh = SO.FindProperty("rearRightMesh");
-    rearRightCollider = SO.FindProperty("rearRightCollider");
+    // UI
+    private SerializedProperty useUI;
+    private SerializedProperty carSpeedText;
 
-    useEffects = SO.FindProperty("useEffects");
-    RLWParticleSystem = SO.FindProperty("RLWParticleSystem");
-    RRWParticleSystem = SO.FindProperty("RRWParticleSystem");
-    RLWTireSkid = SO.FindProperty("RLWTireSkid");
-    RRWTireSkid = SO.FindProperty("RRWTireSkid");
+    // SOUNDS
+    private SerializedProperty useSounds;
+    private SerializedProperty carEngineSound;
+    private SerializedProperty tireScreechSound;
 
-    useUI = SO.FindProperty("useUI");
-    carSpeedText = SO.FindProperty("carSpeedText");
+    private void OnEnable()
+    {
+        SO = new SerializedObject(target);
 
-    useSounds = SO.FindProperty("useSounds");
-    carEngineSound = SO.FindProperty("carEngineSound");
-    tireScreechSound = SO.FindProperty("tireScreechSound");
+        // ➤ MULTIJUGADOR
+        isPlayer2 = SO.FindProperty("isPlayer2");
+        keyForward = SO.FindProperty("keyForward");
+        keyReverse = SO.FindProperty("keyReverse");
+        keyLeft = SO.FindProperty("keyLeft");
+        keyRight = SO.FindProperty("keyRight");
+        keyHandbrake = SO.FindProperty("keyHandbrake");
 
-    useTouchControls = SO.FindProperty("useTouchControls");
-    throttleButton = SO.FindProperty("throttleButton");
-    reverseButton = SO.FindProperty("reverseButton");
-    turnRightButton = SO.FindProperty("turnRightButton");
-    turnLeftButton = SO.FindProperty("turnLeftButton");
-    handbrakeButton = SO.FindProperty("handbrakeButton");
+        // CAR SETUP
+        maxSpeed = SO.FindProperty("maxSpeed");
+        maxReverseSpeed = SO.FindProperty("maxReverseSpeed");
+        accelerationMultiplier = SO.FindProperty("accelerationMultiplier");
+        maxSteeringAngle = SO.FindProperty("maxSteeringAngle");
+        steeringSpeed = SO.FindProperty("steeringSpeed");
+        brakeForce = SO.FindProperty("brakeForce");
+        decelerationMultiplier = SO.FindProperty("decelerationMultiplier");
+        handbrakeDriftMultiplier = SO.FindProperty("handbrakeDriftMultiplier");
+        bodyMassCenter = SO.FindProperty("bodyMassCenter");
 
-  }
+        // WHEELS
+        frontLeftMesh = SO.FindProperty("frontLeftMesh");
+        frontLeftCollider = SO.FindProperty("frontLeftCollider");
+        frontRightMesh = SO.FindProperty("frontRightMesh");
+        frontRightCollider = SO.FindProperty("frontRightCollider");
+        rearLeftMesh = SO.FindProperty("rearLeftMesh");
+        rearLeftCollider = SO.FindProperty("rearLeftCollider");
+        rearRightMesh = SO.FindProperty("rearRightMesh");
+        rearRightCollider = SO.FindProperty("rearRightCollider");
 
-  public override void OnInspectorGUI(){
+        // EFFECTS
+        useEffects = SO.FindProperty("useEffects");
+        RLWParticleSystem = SO.FindProperty("RLWParticleSystem");
+        RRWParticleSystem = SO.FindProperty("RRWParticleSystem");
+        RLWTireSkid = SO.FindProperty("RLWTireSkid");
+        RRWTireSkid = SO.FindProperty("RRWTireSkid");
 
-    SO.Update();
+        // UI
+        useUI = SO.FindProperty("useUI");
+        carSpeedText = SO.FindProperty("carSpeedText");
 
-    GUILayout.Space(25);
-    GUILayout.Label("CAR SETUP", EditorStyles.boldLabel);
-    GUILayout.Space(10);
-    //
-    //
-    //CAR SETUP
-    //
-    //
-    //
-    maxSpeed.intValue = EditorGUILayout.IntSlider("Max Speed:", maxSpeed.intValue, 20, 190);
-    maxReverseSpeed.intValue = EditorGUILayout.IntSlider("Max Reverse Speed:", maxReverseSpeed.intValue, 10, 120);
-    accelerationMultiplier.intValue = EditorGUILayout.IntSlider("Acceleration Multiplier:", accelerationMultiplier.intValue, 1, 10);
-    maxSteeringAngle.intValue = EditorGUILayout.IntSlider("Max Steering Angle:", maxSteeringAngle.intValue, 10, 45);
-    steeringSpeed.floatValue = EditorGUILayout.Slider("Steering Speed:", steeringSpeed.floatValue, 0.1f, 1f);
-    brakeForce.intValue = EditorGUILayout.IntSlider("Brake Force:", brakeForce.intValue, 100, 600);
-    decelerationMultiplier.intValue = EditorGUILayout.IntSlider("Deceleration Multiplier:", decelerationMultiplier.intValue, 1, 10);
-    handbrakeDriftMultiplier.intValue = EditorGUILayout.IntSlider("Drift Multiplier:", handbrakeDriftMultiplier.intValue, 1, 10);
-    EditorGUILayout.PropertyField(bodyMassCenter, new GUIContent("Mass Center of Car: "));
+        // SOUNDS
+        useSounds = SO.FindProperty("useSounds");
+        carEngineSound = SO.FindProperty("carEngineSound");
+        tireScreechSound = SO.FindProperty("tireScreechSound");
+    }
 
-    //
-    //
-    //WHEELS
-    //
-    //
+    public override void OnInspectorGUI()
+    {
+        SO.Update();
 
-    GUILayout.Space(25);
-    GUILayout.Label("WHEELS", EditorStyles.boldLabel);
-    GUILayout.Space(10);
+        //
+        // PLAYER CONTROLS
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("PLAYER CONTROLS", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(isPlayer2);
+        GUILayout.Space(8);
+        EditorGUILayout.PropertyField(keyForward);
+        EditorGUILayout.PropertyField(keyReverse);
+        EditorGUILayout.PropertyField(keyLeft);
+        EditorGUILayout.PropertyField(keyRight);
+        EditorGUILayout.PropertyField(keyHandbrake);
 
-    EditorGUILayout.PropertyField(frontLeftMesh, new GUIContent("Front Left Mesh: "));
-    EditorGUILayout.PropertyField(frontLeftCollider, new GUIContent("Front Left Collider: "));
+        //
+        // CAR SETUP
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("CAR SETUP", EditorStyles.boldLabel);
+        EditorGUILayout.IntSlider(maxSpeed, 20, 190, new GUIContent("Max Speed"));
+        EditorGUILayout.IntSlider(maxReverseSpeed, 10, 120, new GUIContent("Max Reverse Speed"));
+        EditorGUILayout.IntSlider(accelerationMultiplier, 1, 10, new GUIContent("Acceleration Multiplier"));
+        EditorGUILayout.IntSlider(maxSteeringAngle, 10, 45, new GUIContent("Max Steering Angle"));
+        EditorGUILayout.Slider(steeringSpeed, 0.1f, 1f, new GUIContent("Steering Speed"));
+        EditorGUILayout.IntSlider(brakeForce, 100, 600, new GUIContent("Brake Force"));
+        EditorGUILayout.IntSlider(decelerationMultiplier, 1, 10, new GUIContent("Deceleration Multiplier"));
+        EditorGUILayout.IntSlider(handbrakeDriftMultiplier, 1, 10, new GUIContent("Drift Multiplier"));
+        EditorGUILayout.PropertyField(bodyMassCenter);
 
-    EditorGUILayout.PropertyField(frontRightMesh, new GUIContent("Front Right Mesh: "));
-    EditorGUILayout.PropertyField(frontRightCollider, new GUIContent("Front Right Collider: "));
+        //
+        // WHEELS
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("WHEELS", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(frontLeftMesh);
+        EditorGUILayout.PropertyField(frontLeftCollider);
+        EditorGUILayout.PropertyField(frontRightMesh);
+        EditorGUILayout.PropertyField(frontRightCollider);
+        EditorGUILayout.PropertyField(rearLeftMesh);
+        EditorGUILayout.PropertyField(rearLeftCollider);
+        EditorGUILayout.PropertyField(rearRightMesh);
+        EditorGUILayout.PropertyField(rearRightCollider);
 
-    EditorGUILayout.PropertyField(rearLeftMesh, new GUIContent("Rear Left Mesh: "));
-    EditorGUILayout.PropertyField(rearLeftCollider, new GUIContent("Rear Left Collider: "));
+        //
+        // EFFECTS
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("EFFECTS", EditorStyles.boldLabel);
+        useEffects.boolValue = EditorGUILayout.BeginToggleGroup("Use Effects?", useEffects.boolValue);
+        EditorGUILayout.PropertyField(RLWParticleSystem);
+        EditorGUILayout.PropertyField(RRWParticleSystem);
+        EditorGUILayout.PropertyField(RLWTireSkid);
+        EditorGUILayout.PropertyField(RRWTireSkid);
+        EditorGUILayout.EndToggleGroup();
 
-    EditorGUILayout.PropertyField(rearRightMesh, new GUIContent("Rear Right Mesh: "));
-    EditorGUILayout.PropertyField(rearRightCollider, new GUIContent("Rear Right Collider: "));
+        //
+        // UI
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("UI", EditorStyles.boldLabel);
+        useUI.boolValue = EditorGUILayout.BeginToggleGroup("Use UI?", useUI.boolValue);
+        EditorGUILayout.PropertyField(carSpeedText);
+        EditorGUILayout.EndToggleGroup();
 
-    //
-    //
-    //EFFECTS
-    //
-    //
+        //
+        // SOUNDS
+        //
+        GUILayout.Space(20);
+        GUILayout.Label("SOUNDS", EditorStyles.boldLabel);
+        useSounds.boolValue = EditorGUILayout.BeginToggleGroup("Use Sounds?", useSounds.boolValue);
+        EditorGUILayout.PropertyField(carEngineSound);
+        EditorGUILayout.PropertyField(tireScreechSound);
+        EditorGUILayout.EndToggleGroup();
 
-    GUILayout.Space(25);
-    GUILayout.Label("EFFECTS", EditorStyles.boldLabel);
-    GUILayout.Space(10);
-
-    useEffects.boolValue = EditorGUILayout.BeginToggleGroup("Use effects (particle systems)?", useEffects.boolValue);
-    GUILayout.Space(10);
-
-        EditorGUILayout.PropertyField(RLWParticleSystem, new GUIContent("Rear Left Particle System: "));
-        EditorGUILayout.PropertyField(RRWParticleSystem, new GUIContent("Rear Right Particle System: "));
-
-        EditorGUILayout.PropertyField(RLWTireSkid, new GUIContent("Rear Left Trail Renderer: "));
-        EditorGUILayout.PropertyField(RRWTireSkid, new GUIContent("Rear Right Trail Renderer: "));
-
-    EditorGUILayout.EndToggleGroup();
-
-    //
-    //
-    //UI
-    //
-    //
-
-    GUILayout.Space(25);
-    GUILayout.Label("UI", EditorStyles.boldLabel);
-    GUILayout.Space(10);
-
-    useUI.boolValue = EditorGUILayout.BeginToggleGroup("Use UI (Speed text)?", useUI.boolValue);
-    GUILayout.Space(10);
-
-        EditorGUILayout.PropertyField(carSpeedText, new GUIContent("Speed Text (UI): "));
-
-    EditorGUILayout.EndToggleGroup();
-
-    //
-    //
-    //SOUNDS
-    //
-    //
-
-    GUILayout.Space(25);
-    GUILayout.Label("SOUNDS", EditorStyles.boldLabel);
-    GUILayout.Space(10);
-
-    useSounds.boolValue = EditorGUILayout.BeginToggleGroup("Use sounds (car sounds)?", useSounds.boolValue);
-    GUILayout.Space(10);
-
-        EditorGUILayout.PropertyField(carEngineSound, new GUIContent("Car Engine Sound: "));
-        EditorGUILayout.PropertyField(tireScreechSound, new GUIContent("Tire Screech Sound: "));
-
-    EditorGUILayout.EndToggleGroup();
-
-    //
-    //
-    //TOUCH CONTROLS
-    //
-    //
-
-    GUILayout.Space(25);
-    GUILayout.Label("TOUCH CONTROLS", EditorStyles.boldLabel);
-    GUILayout.Space(10);
-
-    useTouchControls.boolValue = EditorGUILayout.BeginToggleGroup("Use touch controls (mobile devices)?", useTouchControls.boolValue);
-    GUILayout.Space(10);
-
-        EditorGUILayout.PropertyField(throttleButton, new GUIContent("Throttle Button: "));
-        EditorGUILayout.PropertyField(reverseButton, new GUIContent("Brakes/Reverse Button: "));
-        EditorGUILayout.PropertyField(turnLeftButton, new GUIContent("Turn Left Button: "));
-        EditorGUILayout.PropertyField(turnRightButton, new GUIContent("Turn Right Button: "));
-        EditorGUILayout.PropertyField(handbrakeButton, new GUIContent("Handbrake Button: "));
-
-    EditorGUILayout.EndToggleGroup();
-
-    //END
-
-    GUILayout.Space(10);
-    SO.ApplyModifiedProperties();
-
-  }
-
+        SO.ApplyModifiedProperties();
+    }
 }
