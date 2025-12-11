@@ -18,6 +18,10 @@ MemoryCaptures/
 *.pidb
 *.booproj
 *.svd
+# No subir imágenes HDRI y EXR enormes
+*.exr
+Assets/UnityTechnologies/
+Assets/**/HDRI/
 
 # OS generated files
 .DS_Store
