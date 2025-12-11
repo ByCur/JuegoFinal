@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c0daa540ab751da4d821ba6f574e77be
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 13400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 217797
+  packageName: Cartoon Race Track Spielberg
+  packageVersion: 1.0
+  assetPath: Assets/CartoonTrackSpielberg/Meshes/MATERIALS_SPIELBERG/TYRE.physicMaterial
+  uploadId: 492192

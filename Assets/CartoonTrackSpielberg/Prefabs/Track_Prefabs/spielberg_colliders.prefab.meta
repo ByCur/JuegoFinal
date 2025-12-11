@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 55ee874428eb0ef43bb7fe3b135ed6d8
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 217797
+  packageName: Cartoon Race Track Spielberg
+  packageVersion: 1.0
+  assetPath: Assets/CartoonTrackSpielberg/Prefabs/Track_Prefabs/spielberg_colliders.prefab
+  uploadId: 492192

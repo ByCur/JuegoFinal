@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a132ac7496aad364187c0c17e56e20e4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 217797
+  packageName: Cartoon Race Track Spielberg
+  packageVersion: 1.0
+  assetPath: Assets/CartoonTrackSpielberg/Prefabs/Prop_Prefabs/prop_start_finish_line.prefab
+  uploadId: 492192

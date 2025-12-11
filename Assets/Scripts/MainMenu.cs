@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject goalPanel;
 
     [Header("Nombre de la escena del juego")]
-    public string gameSceneName = "Race"; // cámbialo por el nombre real de tu escena
+    public string gameSceneName = "CarSelectionScene"; // cámbialo por el nombre real de tu escena
 
     [Header("UI del Récord (TextMeshPro)")]
     public TMP_Text recordText;        // Texto donde se muestra el récord

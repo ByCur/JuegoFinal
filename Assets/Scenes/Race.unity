@@ -724,11 +724,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrometeoCarController
   isPlayer2: 1
-  keyForward: 273
-  keyReverse: 274
-  keyLeft: 276
-  keyRight: 275
-  keyHandbrake: 44
   maxSpeed: 90
   maxReverseSpeed: 45
   accelerationMultiplier: 2
@@ -756,6 +751,12 @@ MonoBehaviour:
   useSounds: 0
   carEngineSound: {fileID: 0}
   tireScreechSound: {fileID: 0}
+  useTouchControls: 0
+  throttleButton: {fileID: 0}
+  reverseButton: {fileID: 0}
+  turnRightButton: {fileID: 0}
+  turnLeftButton: {fileID: 0}
+  handbrakeButton: {fileID: 0}
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
@@ -1033,11 +1034,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PrometeoCarController
   isPlayer2: 0
-  keyForward: 119
-  keyReverse: 115
-  keyLeft: 97
-  keyRight: 100
-  keyHandbrake: 32
   maxSpeed: 90
   maxReverseSpeed: 45
   accelerationMultiplier: 2
@@ -1065,6 +1061,12 @@ MonoBehaviour:
   useSounds: 0
   carEngineSound: {fileID: 0}
   tireScreechSound: {fileID: 0}
+  useTouchControls: 0
+  throttleButton: {fileID: 0}
+  reverseButton: {fileID: 0}
+  turnRightButton: {fileID: 0}
+  turnLeftButton: {fileID: 0}
+  handbrakeButton: {fileID: 0}
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
@@ -1352,11 +1354,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controlador
   isPlayer2: 0
-  keyForward: 0
-  keyReverse: 0
-  keyLeft: 0
-  keyRight: 0
-  keyHandbrake: 0
   maxSpeed: 90
   maxReverseSpeed: 45
   accelerationMultiplier: 2
@@ -1384,6 +1381,12 @@ MonoBehaviour:
   useSounds: 0
   carEngineSound: {fileID: 0}
   tireScreechSound: {fileID: 0}
+  useTouchControls: 0
+  throttleButton: {fileID: 0}
+  reverseButton: {fileID: 0}
+  turnRightButton: {fileID: 0}
+  turnLeftButton: {fileID: 0}
+  handbrakeButton: {fileID: 0}
   carSpeed: 0
   isDrifting: 0
   isTractionLocked: 0
@@ -1590,6 +1593,37 @@ Transform:
   - {fileID: 69335639}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1986921169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1986921170}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1986921170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986921169}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.28866, y: -0.5, z: 10.48237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &2006877391 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 8706808774334851022, guid: 79d0ca8b77e301442afdb49f102e8aed, type: 3}
@@ -1669,3 +1703,4 @@ SceneRoots:
   - {fileID: 1559257750}
   - {fileID: 2066093275}
   - {fileID: 501664451}
+  - {fileID: 1986921170}
