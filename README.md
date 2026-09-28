@@ -250,7 +250,7 @@ This project gave me practical experience with:
 ## 👨‍💻 Authors
 
 **Pablo Pérez Arcas**
-**Juan José Soler Gordo**
+**And Juan José Soler Gordo**
 
 Computers Engineering students at the **University of Málaga (UMA)**.
 
