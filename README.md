@@ -247,10 +247,11 @@ This project gave me practical experience with:
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Authors
 
 **Pablo Pérez Arcas**
+**Juan José Soler Gordo**
 
-Computer Engineering student at the **University of Málaga (UMA)**.
+Computers Engineering students at the **University of Málaga (UMA)**.
 
 Interested in **Software Engineering, Artificial Intelligence and interactive systems**.
